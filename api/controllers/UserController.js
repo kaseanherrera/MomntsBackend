@@ -86,9 +86,11 @@ module.exports = {
 
       // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
       // send a 200 response letting the user agent know the signup was successful.
-
+      var response = {
+        success : true,
+      }
       // Otherwise if this is an HTML-wanting browser, redirect to /welcome.
-      return res.json(user);
+       return res.json(response);
     });
 
   },
