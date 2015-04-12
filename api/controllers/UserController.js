@@ -19,22 +19,39 @@ module.exports = {
 
     }, function (err, user) {
 
-    //if (err) return res.negotiate(err);
-    if (!user) {
 
-      // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
-      // send a 200 response letting the user agent know the login was successful.
-      // (also do this if no `invalidRedirect` was provided)
-    
+    if (!user) {
+      
+      var response = {
+        success : false,
+        userExist : false,
+        error : err
+      }
       // Otherwise if this is an HTML-wanting browser, redirect to /login.
-      return res.badRequest('Invalid username/password combination.');
+      return res.json(response);
     }
 
+
+    if (err) {
+      var response = {
+        success : false,
+        userExist : true,
+        error : err
+      }
+
+      return res.json(response);
+    }
+  
     // "Remember" the user in the session
     // Subsequent requests from this user agent will have `req.session.me` set.
     req.session.me = user.id;
+    var response = {
+        success : true,
+        userExist : true,
+        error : err
+      }
 
-    return res.json(user);
+    return res.json(response);
 
     // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
     // send a 200 response letting the user agent know the login was successful.
