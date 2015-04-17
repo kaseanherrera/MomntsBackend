@@ -9,14 +9,14 @@ module.exports = {
 
 	savePhoto: function (req, res) {
 
-	 var fileLocation = req.session.me;	
+	 var fileLocation = req.session.me 
 
-     Photos.savePhoto({
-    	sender: req.session.me,
-	    fileLocation : fileLocation,
-	    usersInPicture : req.param('usersInPicture'),
-        latitude : req.param('latitude'),
-        longitude : req.param('longitude')
+       Photos.savePhoto({
+    	 sender: req.session.me,
+	     fileLocation : req.fileLocation,
+	     usersInPicture : req.param('usersInPicture'),
+       latitude : req.param('latitude'),
+       longitude : req.param('longitude')
       
   
     }, function (err, user) {
@@ -31,9 +31,11 @@ module.exports = {
       
       // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
       // send a 200 response letting the user agent know the signup was successful.
-
+          var response = {
+        success : true,
+      }
       // Otherwise if this is an HTML-wanting browser, redirect to /welcome.
-      return res.json(picture);
+      return res.json(response);
     });
   }
 };

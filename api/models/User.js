@@ -55,10 +55,7 @@ module.exports = {
       via : 'users'
 
     },
-
-    trainingPhoto : {
-        model : 'TrainingPhotos'
-    }
+    
 },
 
 signup: function (inputs, cb) {

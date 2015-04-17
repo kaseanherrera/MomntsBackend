@@ -12,29 +12,27 @@ module.exports = {
     owner: {
       type : 'string',
       required: true,
-     // columnName: 'owner'
+      columnName: 'owner'
     },
 
   	fileLocation : {
   		type : 'string',
   		required : true,
-  		//columnName : 'fileLocation'
-
+  		columnName : 'fileLocation'
   	},
   	
 
- 
     latitude: {
       type: 'decimal',
-     // required: true,
-     //columnName: 'latitude'
+   //   required: true,
+      columnName: 'latitude'
     },
 
 
     longitude: {
       type: 'decimal',
-      //required: true,
-     // columnName: 'longitude'
+     // required: true,
+      columnName: 'longitude'
     },
 
     users: {
@@ -46,15 +44,25 @@ module.exports = {
 
   //save picture into datanase
   savePhoto: function (input, cb){
+  //call function generate file Location 
+  
+  var fileLocation = require('util').format('/user/photos/%s', input.owner);
    Photos.create({
-      owner : inputs.sender,
-      fileLocation : inputs.fileLocation,
-      latitude :  inputs.latitude,
-      longitude: input.longitude,
-       users : input.users
+      owner : input.owner,
+      fileLocation : fileLocation,
+     // latitude :  input.latitude,
+    //  longitude: input.longitude,
+    //  users : input.users
     })
     .exec(cb);
 
   }
+
+  
+/*
+  getPhotos :function (input,cb){
+    //get all the photos with a given user
+  }
+*/
 };
 

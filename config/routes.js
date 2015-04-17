@@ -22,7 +22,7 @@
 
 module.exports.routes = {
 
-  /***************************************************************************
+  /***************************************************************************k
   *                                                                          *
   * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
   * etc. depending on your default view engine) your home page.              *
@@ -41,7 +41,7 @@ module.exports.routes = {
   'post /login': 'UserController.login',
 
   'get /user/uploadPicture' : {view: 'user/fileUpload'},
-  'post /user/avatar' : 'UserController.uploadAvatar'
+  'post /user/avatar' : 'UserController.uploadPicture'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

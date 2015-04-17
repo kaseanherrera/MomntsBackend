@@ -86,8 +86,6 @@ module.exports = {
       email: req.param('email'),
       phoneNumber: req.param('phoneNumber')
 
-  
-   
 
     }, function (err, user) {
       // res.negotiate() will determine if this is a validation error
@@ -105,6 +103,7 @@ module.exports = {
       // send a 200 response letting the user agent know the signup was successful.
       var response = {
         success : true,
+        key : user.id,
       }
       // Otherwise if this is an HTML-wanting browser, redirect to /welcome.
        return res.json(response);
@@ -118,18 +117,18 @@ module.exports = {
  *
  * (POST /user/avatar)
  */
-uploadAvatar: function (req, res) {
+uploadPicture: function (req, res) {
 
  // var filePath = require('path').resolve(sails.config.appPath, '/assets/images');
 
   //return res.write(filePath);
-
 
   req.file('avatar').upload({
     // don't allow the total upload size to exceed ~10MB
    // dirname: filePath,
     maxBytes: 10000000
   },function whenDone(err, uploadedFiles) {
+
     if (err) {
       return res.negotiate(err);
     }
@@ -139,18 +138,19 @@ uploadAvatar: function (req, res) {
       return res.badRequest('No file was uploaded');
     }
    
-
     //create add all pictures to database
     for (i = 0; i < uploadedFiles.length; i++) { 
 
-        var photo = null;
-
-        TrainingPhotos.addPhoto({
+        Photos.savePhoto({
             owner : req.session.me,
-            fileLocation : uploadedFiles[i].fd
+            //latitude : req.param('latitude'),
+           // longitude : req.param('longitude'),
+          //  users : inputs.users
         }, function (err, TraingingPhoto){
+
             if(err) return res.json(err);
-            User.update({id:req.session.me},{trainingPhoto:TraingingPhoto}).exec(console.log)
+
+            
 
       });
 
