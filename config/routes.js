@@ -41,7 +41,9 @@ module.exports.routes = {
   'post /login': 'UserController.login',
 
   'get /user/uploadPicture' : {view: 'user/fileUpload'},
-  'post /user/avatar' : 'UserController.uploadPicture'
+  'post /user/avatar' : 'UserController.uploadPicture',
+
+  'get /user/getPhotos' : 'UserController.getPhotos'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

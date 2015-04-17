@@ -55,6 +55,11 @@ module.exports = {
       via : 'users'
 
     },
+
+    trainingPhotos: {
+            collection: 'TrainingPhotos',
+            via: 'owner'
+    }
     
 },
 
@@ -74,11 +79,6 @@ signup: function (inputs, cb) {
   },
 
 
-  postPicture : function(inputs,cb){
-    Photos.create({
-        
-    })
-  },
 
   attemptLogin: function (inputs, cb) {
     // Create a user
