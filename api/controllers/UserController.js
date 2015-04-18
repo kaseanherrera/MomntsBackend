@@ -166,9 +166,11 @@ uploadPicture: function (req, res) {
 
 
   req.file('avatar').upload({
-    // don't allow the total upload size to exceed ~10MB
-   // dirname: filePath,
-    maxBytes: 10000000
+     adapter: require('skipper-s3'),
+    key: 'AKIAIJ7DGKVU2YVTGQKA',
+    secret: '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',
+    bucket: 'momnts'
+
   },function whenDone(err, uploadedFiles) {
 
     if (err) {
@@ -180,7 +182,8 @@ uploadPicture: function (req, res) {
     for (i = 0; i < uploadedFiles.length; i++) { 
 
         Photos.savePhoto({
-            owner : req.param('key'),
+          //  owner : req.param('key'),
+            owner : req.session.me
             //latitude : req.param('latitude'),
            // longitude : req.param('longitude'),
           //  users : inputs.users
