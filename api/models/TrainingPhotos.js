@@ -24,12 +24,13 @@ module.exports = {
   },
 
   savePhoto: function(input, cb){
-  	var fileLocation = require('util').format('user/trainingPhotos/%s', input.owner);
-	
-	TrainingPhotos.create({
-		owner : input.owner,
-		fileLocation : fileLocation
-	}).exec(cb);
+  	var fileLocation = require('util').format('momnts/%s/trainingPhotos/%s', input.owner, input.fileName);
+	   concole.log(fileLocation);
+	   TrainingPhotos.create({
+		      owner : input.owner,
+		      fileLocation : fileLocation
+	   }).exec(cb);
   }
+
 };
 

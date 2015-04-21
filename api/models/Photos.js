@@ -59,10 +59,6 @@ module.exports = {
   }
 
   
-/*
-  getPhotos :function (input,cb){
-    //get all the photos with a given user
-  }
-*/
+
 };
 

@@ -7,6 +7,8 @@
 
 module.exports = {
 
+ 
+
   attributes: {
 
     userName: {
@@ -61,22 +63,68 @@ module.exports = {
             via: 'owner'
     }
     
-},
+  },
 
-signup: function (inputs, cb) {
+
+  signup: function (inputs, cb) {
     // Create a user
+   
+    var userName = inputs.name;
 
     User.create({
-      userName: inputs.name,
+      userName: userName,
       password: inputs.password,
       email: inputs.email,
       phoneNumber: inputs.phoneNumber
-     
-      // TODO: But encrypt the password first
    
     })
     .exec(cb);
+
+    User.createFolders({
+      owner : userName
+    });
   },
+
+
+  createFolders : function (input) {
+
+    var AWS = require('aws-sdk'); 
+    AWS.config.update({
+      accessKeyId: 'AKIAIJ7DGKVU2YVTGQKA',
+      secretAccessKey: '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', 
+    }); 
+
+    var s3 = new AWS.S3();
+
+    var user = input.owner; 
+
+    var trainingFolderKey =  user + "/trainingPhotos/" ;
+    var photosFolderKey = user + "/photos/";
+
+    var trainingParams = {
+      Bucket: 'momnts', /* required */
+      Key: trainingFolderKey, /* required */
+      ACL: 'public-read-write',
+      
+    };
+
+    var photoParams = {
+      Bucket: 'momnts',
+      Key : photosFolderKey,
+      ACL : 'public-read-write',
+    }
+  
+    s3.putObject(trainingParams, function(err, data) {
+    if (err) console.log(err, err.stack); // an error occurred
+    else     console.log(data);           // successful response
+    });
+
+    s3.putObject(photoParams, function(err, data) {
+    if (err) console.log(err, err.stack); // an error occurred
+    else     console.log(data);           // successful response
+    });
+  },
+
 
 
 

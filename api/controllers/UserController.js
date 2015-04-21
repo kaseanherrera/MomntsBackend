@@ -61,24 +61,9 @@ module.exports = {
   },
 
 
-  /**
-   * `UserController.logout()`
-   */
-/*  logout: function (req, res) {
-    return res.json({
-      todo: 'logout() is not implemented yet!'
-    });
-  },
-
-
-  /**
-   * `UserController.signup()`
-   */
 
 
   signup: function (req, res) {
-
-    // Attempt to signup a user using the provided parameters
 
     User.signup({
       name: req.param('name'),
@@ -88,24 +73,18 @@ module.exports = {
 
 
     }, function (err, user) {
-      // res.negotiate() will determine if this is a validation error
-      // or some kind of unexpected server error, then call `res.badRequest()`
-      // or `res.serverError()` accordingly.
-
+    
+      //if error return error 
       if (err) return res.json(err);
-      // Go ahead and log this user in as well.
-      // We do this by "remembering" the user in the session.
-      // Subsequent requests from this user agent will have `req.session.me` set.
-      req.session.me = user.id;
-      req.session.userName = user.userName;
+      
 
-      // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
-      // send a 200 response letting the user agent know the signup was successful.
+     
+     //set up response, and send down the key 
       var response = {
         success : true,
         key : user.id,
       }
-      // Otherwise if this is an HTML-wanting browser, redirect to /welcome.
+
        return res.json(response);
     });
 
@@ -114,49 +93,130 @@ module.exports = {
 
 
 
-  /**
- * Upload avatar for currently logged-in user
- *
- * (POST /user/uploadTraingPhoto)
- */
-/*
+
+
+
+// (POST /user/uploadTraingPhoto)
 uploadTraingPhoto: function(req, res){
+  
+  var response = {
+    success : false,
+    error : null
+  }
+  var fs = require('fs');
+  var AWS = require('aws-sdk');   
+  AWS.config.update({
+    accessKeyId: 'AKIAIJ7DGKVU2YVTGQKA',
+    secretAccessKey: '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', 
+  }); 
+  var s3 = new AWS.S3();
+
 
   req.file('avatar').upload({
-    maxBytes:100000
-  }),function whenDone(err, uploadedFile){
+        maxBytes: 10000000
+      //  adapter: require('skipper-s3'),
+       // key: 'AKIAIJ7DGKVU2YVTGQKA',
+      //  secret: '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',
+      //  bucket: 'momnts/kaseanherrera/'
+     // bucket: 'momnts/kaseanherr'
+    },
+    
+      function whenDone(err, uploadedFile){
+      
+        fs.readFile(uploadedFile[0].fd, function (err, data) {
+          if(err){
+            console.log("roor");
+
+          }else{
+            var params = {
+              Bucket: 'momnts', /* required */
+              Key: 'kaseanherrera/' + "pic.png", /* required */
+              ACL: 'public-read-write',
+              Body: new Buffer(data) 
+
+              };
+              s3.putObject(params, function(err, data) {
+              if (err) console.log("err, err.stack"); // an error occurred
+              else     console.log("made it");           // successful response
+          });
+          }
+        });
+      });
 
 
-    if (err) {
-      var response = {
-        success : false,
-        reason : 'error with upload',
+      /*
+      for(i = 0; i < uploadedFiles.length ; i++){
+          console.log(uploadedFiles);
+
       }
+    } */
 
-      return res.json(response);
+      
+        
+
+/*
+ 
+
+      var trainingFolderKey =  user + "/trainingPhotos/" ;
+
+      var trainingParams = {
+        Bucket: 'momnts', 
+        Key: trainingFolderKey, 
+        ACL: 'public-read-write',
+      };
+
     }
 
-    //create photo objects 
-    for(i = 0; i < uploadedFiles.length ; i++){
+ 
+  
+      s3.putObject(trainingParams, function(err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     console.log(data);           // successful response
+      });
 
-        TrainingPhotos.savePhoto({
-          owner : req.param('key')
-        }, function (err, TrainingPhotos){
-          if(err){
-            var response = {
-              success : false,
-              error : 'problem while saving file'
-            }
 
-            return res.json(response);
-          }
+      req.file('avatar').upload({
+        maxBytes: 10000000
+      //adapter: require('skipper-s3'),
+     /// key: 'AKIAIJ7DGKVU2YVTGQKA',
+     // secret: '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',
+      //bucket: 'momnts/' + user.userName + '/trainingPhotos/'
+     // bucket: 'momnts/kaseanherr'
+    }),
+    
+      function whenDone(err, uploadedFile){
+        console.log("made it this fat");
+        if (err) {
+          response.error = 'error uploading file';
+          return res.json(response);
         }
 
-  });
+        
+        //upload file to s3
+        //save training photo information in database
+        /*for(i = 0; i < uploadedFiles.length ; i++){
 
-}
+          TrainingPhotos.savePhoto({
+          owner : req.param('key'),
+          fileName : uploadedFiles[i].fd},
 
-}; */
+          function (err, TrainingPhotos){
+          
+            if(err){
+              response.error = 'problem while saving file';
+            }
+          });
+        } 
+      }; 
+    })
+ // }); 
+*/
+ // response.success = true;
+//  return res.json(response) ;
+},
+
+
+ 
 
 
 
@@ -164,12 +224,13 @@ uploadTraingPhoto: function(req, res){
 
 uploadPicture: function (req, res) {
 
-
+  //check if user has a bucket 
+  
   req.file('avatar').upload({
      adapter: require('skipper-s3'),
-    key: 'AKIAIJ7DGKVU2YVTGQKA',
-    secret: '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',
-    bucket: 'momnts'
+      key: 'AKIAIJ7DGKVU2YVTGQKA',
+      secret: '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',
+      bucket: 'momnts'
 
   },function whenDone(err, uploadedFiles) {
 
@@ -200,29 +261,64 @@ uploadPicture: function (req, res) {
 },
 
 
-getPhotos: function (req, res){
+getPhotoLocations: function (req, res){
+  //i need the user name 
+    
+    var AWS = require('aws-sdk'); 
 
-  req.validate({
-    id: 'string'
-  });
+    AWS.config.update({
+    accessKeyId: 'AKIAIJ7DGKVU2YVTGQKA',
+    secretAccessKey: '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', 
+    }); 
 
-  User.findOne(req.param('id')).exec(function (err, user){
-    if (err) return res.negotiate(err);
-    if (!user) return res.notFound();
 
+
+    var s3 = new AWS.S3();
+    var params = {
+  
+      Bucket: 'momnts'
+    };
+
+    s3.listObjects(params, function(err, data) {
+     if (err) console.log(err, err.stack); // an error occurred
+       else     console.log(data);           // successful response
+    });
+
+
+  
+    var params = {
    
+      Key: '387fd75b-052c-419d-9125-dc528e2b6195.jpg',
+   
+      Bucket: 'momnts',
+    
+ 
+  
+  
+    };
 
-    var SkipperDisk = require('skipper-disk');
-    var fileAdapter = SkipperDisk(/* optional opts */);
 
-    var fileName = 'd6f49acf-5a56-49a4-8795-4be0954027f7.jpg';
+  s3.getObject(params, function(err, data) {
+  if (err) console.log(err, err.stack); // an error occurred
+  else {
+    console.log(data);          // successful response
+    return res.json(data)
+
+  }   
+  }); 
+
+    
+ //   var SkipperDisk = require('skipper-disk');
+   // var fileAdapter = SkipperDisk(/* optional opts */); 
+
+/*    var fileName = 'd6f49acf-5a56-49a4-8795-4be0954027f7.jpg';
     // Stream the file down
     fileAdapter.read(fileName)
     .on('error', function (err){
       return res.serverError(err);
     })
-    .pipe(res);
-  });
+    .pipe(res); */
+  //});
 }
 
 
