@@ -9,7 +9,7 @@ module.exports = {
 
   attributes: {
   	owner: {
-  		tyoe: 'string',
+  		type: 'integer',
   		required: true,
   		columnName : 'owner',
   		model:'User'
@@ -24,11 +24,10 @@ module.exports = {
   },
 
   savePhoto: function(input, cb){
-  	var fileLocation = require('util').format('momnts/%s/trainingPhotos/%s', input.owner, input.fileName);
-	   concole.log(fileLocation);
+ 
 	   TrainingPhotos.create({
-		      owner : input.owner,
-		      fileLocation : fileLocation
+		      owner : input.owner.toString(),
+		      fileLocation : input.fileLocation
 	   }).exec(cb);
   }
 

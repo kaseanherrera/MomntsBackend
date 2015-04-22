@@ -43,7 +43,10 @@ module.exports.routes = {
   'get /uploadTrainingPhoto' : {view: 'user/fileUpload'},
   'post /user/avatar' : 'UserController.uploadTraingPhoto',
 
-  //'get /user/getPhotos' : 'UserController.getPhotos'
+  'get /uploadPhoto' : {view: 'user/fileUpload2'},
+  'post /user/uploadPhoto' : 'UserController.uploadPhoto',
+
+  'get /getPhotos' : 'UserController.getPhotoLocations'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

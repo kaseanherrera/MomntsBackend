@@ -54,7 +54,7 @@ module.exports = {
 
     photos: {
       collection: 'Photos',
-      via : 'users'
+      via : 'owner'
 
     },
 

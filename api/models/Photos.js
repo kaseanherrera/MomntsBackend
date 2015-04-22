@@ -10,8 +10,9 @@ module.exports = {
  attributes: {
 
     owner: {
-      type : 'string',
+      type : 'integer',
       required: true,
+      model : 'User',
       columnName: 'owner'
     },
 
@@ -42,14 +43,12 @@ module.exports = {
 
 },
 
-  //save picture into datanase
-  savePhoto: function (input, cb){
-  //call function generate file Location 
   
-  var fileLocation = require('util').format('/user/photos/%s', input.owner);
+  savePhoto: function (input, cb){
+  
    Photos.create({
       owner : input.owner,
-      fileLocation : fileLocation,
+      fileLocation : input.fileLocation,
      // latitude :  input.latitude,
     //  longitude: input.longitude,
     //  users : input.users
