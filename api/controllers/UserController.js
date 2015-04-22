@@ -185,9 +185,12 @@ uploadPhoto: function(req, res){
  
   var s3 = new AWS.S3();
 
-  User.findOne({id:req.param('key')}).exec(function findOneCB(err,found){
-  
-  var userName = found.userName;
+ // User.findOne({id:req.param('key')}).exec(function findOneCB(err,found){
+   User.findOne({id:1}.exec(function findOneCB(err,found){
+ 
+ // var userName = found.userName;
+  var userName = 'kaseanherrera';
+
  
   
   req.file('avatar').upload({
@@ -218,7 +221,9 @@ uploadPhoto: function(req, res){
 
       Photos.savePhoto({
         fileLocation : location,
-        owner : req.param('key')
+       // owner : req.param('key')
+        owner : 1
+
       },function (err,Photo){
         if(err) console.log(err);
       }); 
