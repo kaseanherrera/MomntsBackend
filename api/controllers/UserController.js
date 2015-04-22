@@ -198,7 +198,8 @@ uploadPhoto: function(req, res){
   },
     
   function whenDone(err, uploadedFile){
-    //loop through uploaded files and upload them to amazon .  
+    //loop through uploaded files and upload them to amazon . 
+    console.log(uploadFile.size) 
     for(var i = 0; i < uploadedFile.length ; i++){
       var directorySplit = uploadedFile[i].fd.split("/");
       var fileName = directorySplit[directorySplit.length-1];
