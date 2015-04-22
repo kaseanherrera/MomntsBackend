@@ -115,6 +115,8 @@ module.exports = {
 
     User.findOne({id:req.param('key')}).exec(function findOneCB(err,found){
   
+    console.log(found);
+    console(req.param('key'));
     var userName = found.userName;
  
   
