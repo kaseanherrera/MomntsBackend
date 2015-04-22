@@ -87,7 +87,6 @@ module.exports = {
 
        return res.json(response);
     });
-
   },
 
 
@@ -96,51 +95,51 @@ module.exports = {
 
 
 
-// (POST /user/uploadTraingPhoto)
-uploadTraingPhoto: function(req, res){
+  // (POST /user/uploadTraingPhoto)
+  uploadTraingPhoto: function(req, res){
   
-  var response = {
-    success : false,
-    error : null
-  }
+    var response = {
+     success : false,
+     error : null
+   }
 
-  var fs = require('fs');
-  var AWS = require('aws-sdk'); 
+    var fs = require('fs');
+    var AWS = require('aws-sdk'); 
 
-  AWS.config.update({
-    accessKeyId: 'AKIAIJ7DGKVU2YVTGQKA',
-    secretAccessKey: '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', 
-  }); 
+   AWS.config.update({
+     accessKeyId: 'AKIAIJ7DGKVU2YVTGQKA',
+     secretAccessKey: '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', 
+   }); 
  
-  var s3 = new AWS.S3();
+   var s3 = new AWS.S3();
 
-  User.findOne({id:req.param('key')}).exec(function findOneCB(err,found){
+    User.findOne({id:req.param('key')}).exec(function findOneCB(err,found){
   
-  var userName = found.userName;
+    var userName = found.userName;
  
   
-  req.file('avatar').upload({
-        maxBytes: 10000000
-  },
+    req.file('avatar').upload({
+      maxBytes: 10000000
+    },
     
-  function whenDone(err, uploadedFile){
-    //loop through uploaded files and upload them to amazon .  
-    for(var i = 0; i < uploadedFile.length ; i++){
-      var directorySplit = uploadedFile[i].fd.split("/");
-      var fileName = directorySplit[directorySplit.length-1];
+    function whenDone(err, uploadedFile){
+      //loop through uploaded files and upload them to amazon .  
+      for(var i = 0; i < uploadedFile.length ; i++){
+        var directorySplit = uploadedFile[i].fd.split("/");
+        var fileName = directorySplit[directorySplit.length-1];
     
-      var location = userName + '/trainingPhotos/' + fileName;
-      fs.readFile(uploadedFile[i].fd, function(err,data){
-        var params = {
-          Bucket: 'momnts', 
-          Key: location, 
-          ACL: 'public-read-write',
-          Body: new Buffer(data) 
-        };
+        var location = userName + '/trainingPhotos/' + fileName;
+        fs.readFile(uploadedFile[i].fd, function(err,data){
+          var params = {
+           Bucket: 'momnts', 
+           Key: location, 
+           ACL: 'public-read-write',
+           Body: new Buffer(data) 
+          };
 
-        s3.putObject(params, function(err, data) {
-          if (err) console.log("err, err.stack"); // an error occurred
-          else     console.log(data);
+          s3.putObject(params, function(err, data) {
+            if (err) console.log("err, err.stack"); // an error occurred
+            else     console.log(data);
         });
       });
 
@@ -151,11 +150,10 @@ uploadTraingPhoto: function(req, res){
       },function (err,TraingingPhoto){
         if(err) console.log(err);
       }); 
-
     }
   }); 
 
- });
+  });
   
   response.success = true;
   return res.json(response);
@@ -228,46 +226,12 @@ uploadPhoto: function(req, res){
 },
 
 
- 
 
 
+getPhotos: function (req, res){
 
-
-getPhotoLocations: function (req, res){
     
-    var AWS = require('aws-sdk'); 
-
-    AWS.config.update({
-    accessKeyId: 'AKIAIJ7DGKVU2YVTGQKA',
-    secretAccessKey: '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',
-    region : '' 
-   
-    }); 
-
-    var s3 = new AWS.S3();
-
-    var params = {
-      Bucket: 'momnts',
-      Key : 'naren/trainingPhotos/'
-    };
-     
-
-
-  s3.getObject(params, function(err, data) {
-  if (err) console.log(err, err.stack); // an error occurred
-  else {
-    console.log(data);          // successful response
-    return res.json(data)
-
-  }   
-
-   /* s3.listObjects(params, function(err, data) {
-     if (err) console.log(err, err.stack); // an error occurred
-       else     console.log(data);           // successful response
-    }); */
-});
 }
-
 
 
 };
