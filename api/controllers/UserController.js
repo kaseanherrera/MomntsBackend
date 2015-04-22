@@ -101,8 +101,12 @@ module.exports = {
   uploadTraingPhoto: function(req, res){
     //var a = parseInt("10") + "<br>";
     //console.log(req.param('key'));
-    console.log("+++++++++++++++++++++++++++++++++++");
-    console.log(req.allParams());
+    for( Part p : req.getParts() ) {
+    if( "key".equals(p.getName()) ) {
+        console.log(p);
+    }
+    
+  }
     var response = {
      success : false,
      error : null
