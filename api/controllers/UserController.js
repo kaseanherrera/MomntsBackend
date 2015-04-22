@@ -97,7 +97,8 @@ module.exports = {
 
   // (POST /user/uploadTraingPhoto)
   uploadTraingPhoto: function(req, res){
-  
+    
+    alert(req.param('key'));
     var response = {
      success : false,
      error : null
