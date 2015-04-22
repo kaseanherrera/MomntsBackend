@@ -65,6 +65,8 @@ module.exports = {
 
   signup: function (req, res) {
 
+    console.log(req.allParams());
+
     User.signup({
       name: req.param('name'),
       password: req.param('password'),
