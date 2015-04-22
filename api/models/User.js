@@ -41,9 +41,19 @@ module.exports = {
     {
     	type: 'string',
     	unique: true,
-        defaultsTo: '000-000-0000'
+      defaultsTo: '000-000-0000'
   //  	columnName: 'phone_number'
 
+    },
+
+    currentLat:
+    {
+      type: 'float',
+    },
+
+    currentLon:
+    {
+      type: 'float'
     },
 
 

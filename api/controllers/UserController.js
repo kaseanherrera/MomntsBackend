@@ -239,6 +239,31 @@ uploadPhoto: function(req, res){
   return res.json(response);
 },
 
+updataLocation : function(req, res){
+  var lng = req.param('lng');
+  var lat = req.param('lat');
+  var userKey = req.param('key');
+
+  User.findOne({id:userKey}).exec(function findOneCB(err,found){
+    if(error) {
+       res.json(err);
+    }
+
+    user.currentLat = lat;
+    user.currentLng = lng;
+
+    user.save(function(error) {
+        if(error) {
+            // do something with the error.
+        } else {
+            // value saved!
+            req.send(user);
+        }
+    });
+
+  });
+
+},
 
 
 
