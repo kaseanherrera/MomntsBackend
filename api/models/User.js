@@ -88,7 +88,7 @@ module.exports = {
 
   createFolders : function (input) {
 
-   // var AWS = require('aws-sdk'); 
+    var AWS = require('aws-sdk'); 
     AWS.config.update({
       accessKeyId: 'AKIAIJ7DGKVU2YVTGQKA',
       secretAccessKey: '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', 
