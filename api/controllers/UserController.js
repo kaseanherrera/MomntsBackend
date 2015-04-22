@@ -100,7 +100,8 @@ module.exports = {
   // (POST /user/uploadTraingPhoto)
   uploadTraingPhoto: function(req, res){
     //var a = parseInt("10") + "<br>";
-    console.log(req.param('key'));
+    //console.log(req.param('key'));
+    console.log("+++++++++++++++++++++++++++++++++++");
     console.log(req.allParams());
     var response = {
      success : false,
@@ -119,7 +120,7 @@ module.exports = {
 
     User.findOne({id:1}).exec(function findOneCB(err,found){
   
-    console.log(found);
+   // console.log(found);
     //console.log(req.param('key'));
     var userName = found.userName;
  
