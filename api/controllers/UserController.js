@@ -97,8 +97,9 @@ module.exports = {
 
   // (POST /user/uploadTraingPhoto)
   uploadTraingPhoto: function(req, res){
-    
+    //var a = parseInt("10") + "<br>";
     console.log(req.param('key'));
+    console.log(req.allParams());
     var response = {
      success : false,
      error : null
