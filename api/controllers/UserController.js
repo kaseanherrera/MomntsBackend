@@ -256,8 +256,9 @@ updataLocation : function(req, res){
         if(error) {
             // do something with the error.
         } else {
-            // value saved!
-            req.send(user);
+          return res.json({
+            success : true
+          })
         }
     });
 
