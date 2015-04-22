@@ -101,13 +101,11 @@ module.exports = {
   uploadTraingPhoto: function(req, res){
     //var a = parseInt("10") + "<br>";
     //console.log(req.param('key'));
-    for( Part p : req.getParts() ) {
-    if( "key".equals(p.getName()) ) {
-        console.log(p);
-    }
-    
-  }
-    var response = {
+ 
+    var uploadFile = req.file('avatar');
+    console.log(uploadFile);
+  
+   var response = {
      success : false,
      error : null
    }
