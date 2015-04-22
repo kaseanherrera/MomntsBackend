@@ -124,8 +124,8 @@ module.exports = {
   
    // console.log(found);
     //console.log(req.param('key'));
-    var userName = found.userName;
- 
+   // var userName = found.userName;
+  var userName = "kaseanherrera";
   
     req.file('avatar').upload({
       maxBytes: 10000000
