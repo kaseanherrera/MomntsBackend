@@ -46,7 +46,7 @@ module.exports.routes = {
   'get /uploadPhoto' : {view: 'user/fileUpload2'},
   'post /user/uploadPhoto' : 'UserController.uploadPhoto',
 
-  'get /updataLocation' : {view: 'user/locationUpdate'},
+  'get /updateLocation' : {view: 'user/locationUpdate'},
   'post /user/updateLocation' : 'UserController.updateLocation',
 
   'get /getPhotos' : 'UserController.getPhotoLocations'

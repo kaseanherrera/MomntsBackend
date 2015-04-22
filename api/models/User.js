@@ -51,7 +51,7 @@ module.exports = {
       type: 'float',
     },
 
-    currentLon:
+    currentLng:
     {
       type: 'float'
     },

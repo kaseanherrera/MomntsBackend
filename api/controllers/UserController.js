@@ -239,13 +239,13 @@ uploadPhoto: function(req, res){
   return res.json(response);
 },
 
-updataLocation : function(req, res){
+updateLocation : function(req, res){
   var lng = req.param('lng');
   var lat = req.param('lat');
   var userKey = req.param('key');
 
-  User.findOne({id:userKey}).exec(function findOneCB(err,found){
-    if(error) {
+  User.findOne({id:userKey}).exec(function findOneCB(err,user){
+    if(err) {
        res.json(err);
     }
 
