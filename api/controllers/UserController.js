@@ -118,16 +118,9 @@ module.exports = {
     }, function whenDone(err, uploadedFile){
 
       console.log(uploadedFile.length);
-      if (err){
-          return res.json(err);
-      }
-      else{
-          response.success = true;
-          return res.json(response);
-      }
       
 
-     /* var userName = user.userName;
+      var userName = user.userName;
       var length = uploadedFile.length;
 
       console.log("*****************NumberOfFiles Below***********" + length);
@@ -162,7 +155,7 @@ module.exports = {
         if(err) console.log(err);
       }); 
     }
- */
+ 
 
   });
   
