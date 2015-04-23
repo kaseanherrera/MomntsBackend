@@ -92,7 +92,7 @@ module.exports = {
   var key = req.param('key');
   var userName = req.param('userName');
   
-  console.log(req.file('testfile')._files[0].stream.filename;);
+  console.log(req.file('testfile')._files[0].stream.filename);
 
 
    var response = {
