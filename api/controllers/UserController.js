@@ -113,13 +113,13 @@ module.exports = {
     var userName = found.userName;
   
     req.file('avatar').upload({
-      console.log("*****************finding user***********");
+
       maxBytes: 10000000
     },
     
     function whenDone(err, uploadedFile){
       
-
+      console.log("*****************finding user***********");
       if(err){
         return res.json("no files");
       }
