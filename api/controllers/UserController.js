@@ -132,7 +132,7 @@ module.exports = {
 
           s3.putObject(params, function(err, data) {
             if (err) console.log("err, err.stack"); // an error occurred
-            else     console.log(data);
+            else     console.log("NO ERROR IN E2");
         });
       });
 
@@ -144,9 +144,10 @@ module.exports = {
         if(err) console.log(err);
       }); 
     }
- 
 
   });
+
+  return res.json(response);
   
 },
 
