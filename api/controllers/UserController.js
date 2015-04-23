@@ -89,14 +89,8 @@ module.exports = {
   uploadTraingPhoto: function(req, res){
 
   var key = req.param('key');
+  var userName = req.param('userName');
 
-  console.log(req.file);
-
-  var user = User.findOne({id:key});
-
-
-
-  
    var response = {
      success : false,
      error : null
@@ -118,20 +112,15 @@ module.exports = {
     }, function whenDone(err, uploadedFile){
 
       console.log(uploadedFile.length);
-      
 
-      var userName = "kaseanherrera";
-      var length = uploadedFile.length;
+      var userName = userName;
 
-      console.log("*****************NumberOfFiles Below***********" + length);
       for(var i = 0; i < uploadedFile.length ; i++){
         var directorySplit = uploadedFile[i].fd.split("/");
         var fileName = directorySplit[directorySplit.length-1];
     
         var location = userName + '/trainingPhotos/' + fileName;
        
-
-        console.log("*****************locationAbove***********" + location);
        
         fs.readFile(uploadedFile[i].fd, function(err,data){
           var params = {
