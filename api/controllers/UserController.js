@@ -111,7 +111,7 @@ module.exports = {
 
     }, function whenDone(err, uploadedFile){
 
-      console.log(uploadedFile.length);
+      console.log("file uploded********" + uploadedFile.length);
 
       var userName = userName;
 
