@@ -118,7 +118,14 @@ module.exports = {
     }, function whenDone(err, uploadedFile){
 
       if (err){
-        return json(err);
+        return json({
+          err: "_____________******************__________"
+        });
+
+        else{
+  response.success = true;
+  return res.json(response);
+        }
       }
      /* var userName = user.userName;
       var length = uploadedFile.length;
@@ -159,8 +166,6 @@ module.exports = {
 
   });
   
-  response.success = true;
-  return res.json(response);
 },
 
 
