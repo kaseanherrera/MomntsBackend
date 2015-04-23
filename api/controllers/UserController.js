@@ -90,7 +90,7 @@ module.exports = {
 
   var key = req.param('key');
 
-  console.log("*****************key***********=" + key);
+  console.log(req.file);
 
   var user = User.findOne({id:key});
 
@@ -117,7 +117,10 @@ module.exports = {
 
     }, function whenDone(err, uploadedFile){
 
-      var userName = user.userName;
+      if (err){
+        return json(err);
+      }
+     /* var userName = user.userName;
       var length = uploadedFile.length;
 
       console.log("*****************NumberOfFiles Below***********" + length);
@@ -152,7 +155,7 @@ module.exports = {
         if(err) console.log(err);
       }); 
     }
- 
+ */
 
   });
   
