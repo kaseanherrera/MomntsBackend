@@ -92,6 +92,7 @@ module.exports = {
   var key = req.param('key');
   var userName = req.param('userName');
   
+  console.log(key);
 
 
    var response = {
@@ -146,7 +147,7 @@ module.exports = {
 
       TrainingPhotos.savePhoto({
         fileLocation : location,
-        owner : req.param('key')
+        owner : key
       },function (err,TraingingPhoto){
         if(err) console.log(err);
       }); 
