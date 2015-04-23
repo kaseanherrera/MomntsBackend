@@ -90,13 +90,8 @@ module.exports = {
   uploadTraingPhoto: function(req, res){
 
 
-  var key = req.param('key')
+  var key = req.param('key');
 
-  console.log("*****************uploading photos***********");
-  console.log(key);
-  console.log("*****************key above***********");
-
- 
   
    var response = {
      success : false,
@@ -114,7 +109,10 @@ module.exports = {
    var s3 = new AWS.S3();
 
     User.findOne({id:key}).exec(function findOneCB(err,found){
-
+  
+  console.log("*****************finding user***********");
+  console.log(found);
+  console.log("*****************user above***********");
     var userName = "kaseanherrera";
   
     req.file('avatar').upload({
