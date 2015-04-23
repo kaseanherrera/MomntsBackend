@@ -90,8 +90,9 @@ module.exports = {
   uploadTraingPhoto: function(req, res){
 
   var key = req.param('key');
-  //var userName = req.param('userName');
-  console.log(key);
+  var userName = req.param('userName');
+  
+
 
    var response = {
      success : false,
@@ -110,7 +111,7 @@ module.exports = {
 
   //  User.findOne({id:key}).exec(function findOneCB(err,found){
 
-    var userName = found.userName;
+    //var userName = found.userName;
   
     req.file('avatar').upload({
 
