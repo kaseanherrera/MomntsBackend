@@ -54,7 +54,6 @@ module.exports = {
 
   signup: function (req, res) {
 
-    console.log(req.allParams());
 
     User.signup({
       name: req.param('name'),
@@ -109,13 +108,12 @@ module.exports = {
    var s3 = new AWS.S3();
 
     User.findOne({id:key}).exec(function findOneCB(err,found){
+
   
-  console.log("*****************finding user***********");
-  console.log(found);
-  console.log("*****************user above***********");
-    var userName = "kaseanherrera";
+    var userName = found.userName;
   
     req.file('avatar').upload({
+      console.log("*****************finding user***********");
       maxBytes: 10000000
     },
     
