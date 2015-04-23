@@ -12,6 +12,10 @@ module.exports = {
    */
   login: function (req, res) {
     
+    var response = {
+        success : false,
+        userExist : false,
+    }
   
     User.attemptLogin({
     email: req.param('email'),
@@ -21,35 +25,20 @@ module.exports = {
 
 
     if (!user) {
-      
-      var response = {
-        success : false,
-        userExist : false,
-        error : err
-      }
       // Otherwise if this is an HTML-wanting browser, redirect to /login.
       return res.json(response);
     }
 
 
     if (err) {
-      var response = {
-        success : false,
-        userExist : true,
-        error : err
-      }
-
+      response.error = err;
       return res.json(response);
     }
   
-    // "Remember" the user in the session
-    // Subsequent requests from this user agent will have `req.session.me` set.
-    req.session.me = user.id;
-    var response = {
-        success : true,
-        userExist : true,
-        error : err
-      }
+
+    response.success = true;
+    response.userExist = true;
+    response.userId = user.id;
 
     return res.json(response);
 
@@ -99,9 +88,8 @@ module.exports = {
 
   // (POST /user/uploadTraingPhoto)
   uploadTraingPhoto: function(req, res){
-    //var a = parseInt("10") + "<br>";
-    //console.log(req.param('key'));
 
+  var key = req.param('key')
   
    var response = {
      success : false,
@@ -118,19 +106,21 @@ module.exports = {
  
    var s3 = new AWS.S3();
 
-    User.findOne({id:1}).exec(function findOneCB(err,found){
-  
-   // console.log(found);
-    //console.log(req.param('key'));
-   // var userName = found.userName;
-  var userName = "kaseanherrera";
+    User.findOne({id:key}).exec(function findOneCB(err,found){
+
+    var userName = "kaseanherrera";
   
     req.file('avatar').upload({
       maxBytes: 10000000
     },
     
     function whenDone(err, uploadedFile){
-      //loop through uploaded files and upload them to amazon .  
+      
+
+
+      console.log("*****************Length Below***********");
+      console.log(uploadedFile.length);
+      console.log("**********Length Above************");
       for(var i = 0; i < uploadedFile.length ; i++){
         var directorySplit = uploadedFile[i].fd.split("/");
         var fileName = directorySplit[directorySplit.length-1];
@@ -239,6 +229,7 @@ uploadPhoto: function(req, res){
   return res.json(response);
 },
 
+
 updateLocation : function(req, res){
   var lng = req.param('lng');
   var lat = req.param('lat');
@@ -269,8 +260,33 @@ updateLocation : function(req, res){
 
 
 getPhotos: function (req, res){
+  var userId = req.param('key');
+  var index = req.param('index');
 
+  var response = {
+    success : true
+  }
+
+  var locationList = [];
+
+  Photos.find({ where: { owner: userId } }).exec(function findOneCB(err,photos){
+    if(err){
+      response.success = false;
+      response.error = err;
+      return res.json(response);
+    }
+
+    for(var i = 0 ; i < photos.length ; i++){
+      locationList.push(photos[i].fileLocation);
+
+    }
+
+    response.locationList = locationList;
+    return res.json(response);
     
+  });
+
+
 }
 
 

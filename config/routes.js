@@ -40,7 +40,7 @@ module.exports.routes = {
   'get /login': {view: 'user/login'},
   'post /login': 'UserController.login',
 
-  'get /uploadTrainingPhoto' : {view: 'user/fileUpload'},
+  'get /uploadTrainingPhoto' : {view: 'user/uploadTrainingPhoto'},
   'post /user/avatar' : 'UserController.uploadTraingPhoto',
 
   'get /uploadPhoto' : {view: 'user/fileUpload2'},
@@ -49,7 +49,8 @@ module.exports.routes = {
   'get /updateLocation' : {view: 'user/locationUpdate'},
   'post /user/updateLocation' : 'UserController.updateLocation',
 
-  'get /getPhotos' : 'UserController.getPhotoLocations'
+  'get /getPhotos' : {view : 'user/getPhotos'},
+  'post /user/getPhotos' : 'UserController.getPhotos'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
