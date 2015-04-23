@@ -92,6 +92,8 @@ module.exports = {
 
   var key = req.param('key');
 
+  console.log("*****************key***********=" + key);
+
   
 
   
