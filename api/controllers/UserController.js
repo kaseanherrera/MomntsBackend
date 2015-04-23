@@ -88,8 +88,11 @@ module.exports = {
   // (POST /user/uploadTraingPhoto)
   uploadTraingPhoto: function(req, res){
 
+  console.log("*****************UploadingTrainingPhotos***********");
 
   var key = req.param('key');
+
+  
 
   
    var response = {
@@ -114,20 +117,20 @@ module.exports = {
   
     req.file('avatar').upload({
 
-      maxBytes: 10000000
     },
     
     function whenDone(err, uploadedFile){
       
+      var length = uploadedFile.length;
+      console.log("*****************NumberOfFiles Below***********" + length);
       for(var i = 0; i < uploadedFile.length ; i++){
         var directorySplit = uploadedFile[i].fd.split("/");
         var fileName = directorySplit[directorySplit.length-1];
     
         var location = userName + '/trainingPhotos/' + fileName;
        
-        console.log("*****************finding user***********");
-        console.log(location);
-         console.log("*****************finding user***********");
+
+        console.log("*****************locationAbove***********" + location);
        
         fs.readFile(uploadedFile[i].fd, function(err,data){
           var params = {
