@@ -112,7 +112,7 @@ module.exports = {
  
    var s3 = new AWS.S3();
 
-    User.findOne({id:key}).then(function findOneCB(err,found){
+    User.findOne({id:1}).then(function findOneCB(err,found){
 
     console.log(found);
   
