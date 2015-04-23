@@ -116,6 +116,7 @@ module.exports = {
       var userName = userName;
 
       for(var i = 0; i < uploadedFile.length ; i++){
+
         var directorySplit = uploadedFile[i].fd.split("/");
         var fileName = directorySplit[directorySplit.length-1];
     
@@ -145,9 +146,10 @@ module.exports = {
       }); 
     }
 
+    return res.json(uploadedFile);
   });
 
-  return res.json(response);
+  
   
 },
 
