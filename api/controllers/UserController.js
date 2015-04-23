@@ -91,6 +91,7 @@ module.exports = {
 
   var key = req.param('key');
   //var userName = req.param('userName');
+  console.log(key);
 
    var response = {
      success : false,
