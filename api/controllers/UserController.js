@@ -120,7 +120,7 @@ module.exports = {
       console.log(uploadedFile.length);
       
 
-      var userName = user.userName;
+      var userName = "kaseanherrera";
       var length = uploadedFile.length;
 
       console.log("*****************NumberOfFiles Below***********" + length);
