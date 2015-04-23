@@ -92,7 +92,7 @@ module.exports = {
   var key = req.param('key');
   var userName = req.param('userName');
   
-  console.log(req.file('testfile')._files[0].stream.filename);
+
 
 
    var response = {
@@ -124,6 +124,7 @@ module.exports = {
 
       for(var i = 0; i < uploadedFile.length ; i++){
 
+        console.log(uploadedFile[i]);
         var directorySplit = uploadedFile[i].fd.split("/");
         var fileName = directorySplit[directorySplit.length-1];
     
