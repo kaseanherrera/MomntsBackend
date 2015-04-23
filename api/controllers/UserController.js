@@ -89,7 +89,14 @@ module.exports = {
   // (POST /user/uploadTraingPhoto)
   uploadTraingPhoto: function(req, res){
 
+
   var key = req.param('key')
+
+  console.log("*****************uploading photos***********");
+  console.log(key);
+  console.log("*****************key above***********");
+
+ 
   
    var response = {
      success : false,
@@ -117,7 +124,9 @@ module.exports = {
     function whenDone(err, uploadedFile){
       
 
-
+      if(err){
+        return res.json("no files");
+      }
       console.log("*****************Length Below***********");
       console.log(uploadedFile.length);
       console.log("**********Length Above************");
