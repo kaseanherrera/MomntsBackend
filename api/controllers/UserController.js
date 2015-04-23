@@ -113,7 +113,7 @@ module.exports = {
 
       console.log("file uploded********" + uploadedFile.length);
 
-      var userName = userName;
+
 
       for(var i = 0; i < uploadedFile.length ; i++){
 
