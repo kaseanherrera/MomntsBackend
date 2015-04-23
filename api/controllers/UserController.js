@@ -117,16 +117,16 @@ module.exports = {
 
     }, function whenDone(err, uploadedFile){
 
+      console.log(uploadedFile.length);
       if (err){
-        return json({
-          err: "_____________******************__________"
-        });
-
-        else{
-  response.success = true;
-  return res.json(response);
-        }
+          return res.json(err);
       }
+      else{
+          response.success = true;
+          return res.json(response);
+      }
+      
+
      /* var userName = user.userName;
       var length = uploadedFile.length;
 
