@@ -119,18 +119,16 @@ module.exports = {
     
     function whenDone(err, uploadedFile){
       
-      console.log("*****************finding user***********");
-      if(err){
-        return res.json("no files");
-      }
-      console.log("*****************Length Below***********");
-      console.log(uploadedFile.length);
-      console.log("**********Length Above************");
       for(var i = 0; i < uploadedFile.length ; i++){
         var directorySplit = uploadedFile[i].fd.split("/");
         var fileName = directorySplit[directorySplit.length-1];
     
         var location = userName + '/trainingPhotos/' + fileName;
+       
+        console.log("*****************finding user***********");
+        console.log(location);
+         console.log("*****************finding user***********");
+       
         fs.readFile(uploadedFile[i].fd, function(err,data){
           var params = {
            Bucket: 'momnts', 
