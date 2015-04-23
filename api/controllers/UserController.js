@@ -95,6 +95,7 @@ module.exports = {
   var user = User.findOne({id:key});
 
 
+
   
    var response = {
      success : false,
@@ -114,12 +115,11 @@ module.exports = {
   
     req.file('avatar').upload({
 
-    },
-    
-    function whenDone(err, uploadedFile){
+    }, function whenDone(err, uploadedFile){
+
       var userName = user.userName;
       var length = uploadedFile.length;
-      
+
       console.log("*****************NumberOfFiles Below***********" + length);
       for(var i = 0; i < uploadedFile.length ; i++){
         var directorySplit = uploadedFile[i].fd.split("/");
