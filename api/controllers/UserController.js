@@ -40,6 +40,7 @@ module.exports = {
     response.userExist = true;
     response.userId = user.id;
 
+
     return res.json(response);
 
     // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
@@ -89,7 +90,7 @@ module.exports = {
   uploadTraingPhoto: function(req, res){
 
   var key = req.param('key');
-  var userName = req.param('userName');
+  //var userName = req.param('userName');
 
    var response = {
      success : false,
@@ -106,6 +107,9 @@ module.exports = {
  
    var s3 = new AWS.S3();
 
+    User.findOne({id:key}).exec(function findOneCB(err,found){
+
+    var userName = found.userName;
   
     req.file('avatar').upload({
 
@@ -148,6 +152,7 @@ module.exports = {
 
     return res.json(uploadedFile);
   });
+});
 
   
   
