@@ -88,15 +88,13 @@ module.exports = {
   // (POST /user/uploadTraingPhoto)
   uploadTraingPhoto: function(req, res){
 
-  console.log("*****************UploadingTrainingPhotos***********");
-
   var key = req.param('key');
 
   console.log("*****************key***********=" + key);
 
-  
-  console.log(req.allParams());
-  
+  var user = User.findOne({id:key});
+
+
   
    var response = {
      success : false,
@@ -113,19 +111,15 @@ module.exports = {
  
    var s3 = new AWS.S3();
 
-    User.findOne({id:key}).exec(function findOneCB(err,found){
-
-    console.log(found);
-  
-    var userName = found.userName;
   
     req.file('avatar').upload({
 
     },
     
     function whenDone(err, uploadedFile){
-      
+      var userName = user.userName;
       var length = uploadedFile.length;
+      
       console.log("*****************NumberOfFiles Below***********" + length);
       for(var i = 0; i < uploadedFile.length ; i++){
         var directorySplit = uploadedFile[i].fd.split("/");
@@ -158,7 +152,7 @@ module.exports = {
         if(err) console.log(err);
       }); 
     }
-  }); 
+ 
 
   });
   
