@@ -26,7 +26,7 @@ module.exports = {
   savePhoto: function(input, cb){
  
 	   TrainingPhotos.create({
-		      owner : input.owner.toString(),
+		      owner : input.owner,
 		      fileLocation : input.fileLocation
 	   }).exec(cb);
   }
