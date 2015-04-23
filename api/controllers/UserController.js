@@ -95,7 +95,7 @@ module.exports = {
   console.log("*****************key***********=" + key);
 
   
-
+  console.log(req.allParams());
   
    var response = {
      success : false,
