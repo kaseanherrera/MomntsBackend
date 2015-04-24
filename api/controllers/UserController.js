@@ -7,14 +7,10 @@
 
 module.exports = {
 	
-  /**
-   * `UserController.login()`
-   */
   login: function (req, res) {
     
     var response = {
         success : false,
-        userExist : false,
     }
   
     User.attemptLogin({
@@ -23,29 +19,21 @@ module.exports = {
 
     }, function (err, user) {
 
-
     if (!user) {
-      // Otherwise if this is an HTML-wanting browser, redirect to /login.
+      response.userExist = false;
       return res.json(response);
     }
-
 
     if (err) {
       response.error = err;
       return res.json(response);
     }
   
-
     response.success = true;
-    response.userExist = true;
     response.userId = user.id;
-
+    response.userName = user.userName;
 
     return res.json(response);
-
-    // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
-    // send a 200 response letting the user agent know the login was successful.
-    // (also do this if no `successRedirect` was provided)
    
     });
   },
@@ -117,7 +105,7 @@ module.exports = {
         var userId = idUserNameSplit[1];
         var fileName = directorySplit[directorySplit.length-1];
         
-        var location = userName + '/trainingPhotos/' + fileName;
+        var location = userName + '/trainingPhotos/' + fileName + '.jpg';
        
        
         fs.readFile(uploadedFile[i].fd, function(err,data){
