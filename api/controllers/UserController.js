@@ -160,7 +160,7 @@ module.exports = {
 
     }, function whenDone(err, uploadedFile){
 
-
+      var baseUrl = 'https://s3-us-west-1.amazonaws.com/momnts/';
       for(var i = 0; i < uploadedFile.length ; i++){
        
         console.log(uploadedFile[i]);
@@ -182,7 +182,7 @@ module.exports = {
         
         var location = userName + '/photos/' + fileName;
        
-       
+        
         fs.readFile(uploadedFile[i].fd, function(err,data){
           var params = {
            Bucket: 'momnts', 
@@ -199,7 +199,7 @@ module.exports = {
 
 
         Photos.savePhoto({
-          fileLocation : location,
+          fileLocation : baseUrl+location,
           owner : userId,
           lat : lat,
           lng : lng
@@ -247,7 +247,7 @@ updateLocation : function(req, res){
 
 getPhotos: function (req, res){
   var userId = req.param('key');
-  var index = req.param('index');
+  //var index = req.param('index');
 
   var response = {
     success : true
