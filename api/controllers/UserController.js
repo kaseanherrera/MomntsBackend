@@ -163,6 +163,8 @@ module.exports = {
 
       for(var i = 0; i < uploadedFile.length ; i++){
        
+        console.log(uploadedFile[i]);
+
         var idUserNameSplit = uploadedFile[i].filename.split("/");
         var directorySplit = uploadedFile[i].fd.split("/");
 
