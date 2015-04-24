@@ -163,7 +163,7 @@ module.exports = {
 
       for(var i = 0; i < uploadedFile.length ; i++){
        
-        var idUserNameSplit = uploadedFile[i].filename.split("/");
+        var idUserNameSplit = uploadedFile[i].filename.split(":");
         var directorySplit = uploadedFile[i].fd.split("/");
 
         var userName = idUserNameSplit[0];
@@ -171,9 +171,14 @@ module.exports = {
         var lat = idUserNameSplit[2];
         var lng = idUserNameSplit[3];
 
+        console.log(userName);
+        console.log(userId);
+        console.log(lat);
+        console.log(lng);
+
         var fileName = directorySplit[directorySplit.length-1];
         
-        var location = userName + '/photos/' + fileName + '.jpg';
+        var location = userName + '/photos/' + fileName;
        
        
         fs.readFile(uploadedFile[i].fd, function(err,data){
@@ -197,8 +202,9 @@ module.exports = {
           lat : lat,
           lng : lng
         },
-        function (err,TraingingPhoto){
+        function (err,Photo){
           if(err) console.log(err);
+          else console.log(Photo)
         }); 
       }
 
