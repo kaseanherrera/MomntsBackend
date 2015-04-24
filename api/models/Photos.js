@@ -49,8 +49,8 @@ module.exports = {
    Photos.create({
       owner : input.owner,
       fileLocation : input.fileLocation,
-     // latitude :  input.latitude,
-    //  longitude: input.longitude,
+      latitude :  input.lat,
+      longitude: input.lng,
     //  users : input.users
     })
     .exec(cb);
