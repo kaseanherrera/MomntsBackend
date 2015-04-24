@@ -55,7 +55,6 @@ module.exports = {
 
   signup: function (req, res) {
 
-
     User.signup({
       name: req.param('name'),
       password: req.param('password'),
@@ -63,18 +62,20 @@ module.exports = {
       phoneNumber: req.param('phoneNumber')
 
 
-    }, function (err, user) {
+    }, 
+    function (err, user) {
+
+
+    var response = {
+      success : true,
+      key : user.id,
+      userName : user.userName
+    }
     
       //if error return error 
-      if (err) return res.json(err);
+    if (err) return res.json(err);
       
-
-     
      //set up response, and send down the key 
-      var response = {
-        success : true,
-        key : user.id,
-      }
 
        return res.json(response);
     });
@@ -83,20 +84,11 @@ module.exports = {
 
 
 
-
-
-
   // (POST /user/uploadTraingPhoto)
   uploadTraingPhoto: function(req, res){
 
-  var key = req.param('key');
-  var userName = req.param('userName');
-  
-
-
-
    var response = {
-     success : false,
+     success : true,
      error : null
    }
 
@@ -110,24 +102,21 @@ module.exports = {
  
    var s3 = new AWS.S3();
 
-  //  User.findOne({id:key}).exec(function findOneCB(err,found){
-
-    //var userName = found.userName;
   
     req.file('avatar').upload({
 
     }, function whenDone(err, uploadedFile){
 
-      console.log("file uploded********" + uploadedFile.length);
-
-
 
       for(var i = 0; i < uploadedFile.length ; i++){
-
-        console.log(uploadedFile[i]);
+       
+        var idUserNameSplit = uploadedFile[i].filename.split("/");
         var directorySplit = uploadedFile[i].fd.split("/");
+
+        var userName = idUserNameSplit[0];
+        var userId = idUserNameSplit[1];
         var fileName = directorySplit[directorySplit.length-1];
-    
+        
         var location = userName + '/trainingPhotos/' + fileName;
        
        
@@ -142,24 +131,21 @@ module.exports = {
           s3.putObject(params, function(err, data) {
             if (err) console.log("err, err.stack"); // an error occurred
             else     console.log("NO ERROR IN E2");
+          });
         });
-      });
 
 
-      TrainingPhotos.savePhoto({
-        fileLocation : location,
-        owner : key
-      },function (err,TraingingPhoto){
-        if(err) console.log(err);
-      }); 
-    }
+        TrainingPhotos.savePhoto({
+          fileLocation : location,
+          owner : userId
+        },
+        function (err,TraingingPhoto){
+          if(err) console.log(err);
+        }); 
+      }
 
-    return res.json(uploadedFile);
-  });
-//});
-
-  
-  
+    return res.json(response);
+  }); 
 },
 
 

@@ -11,12 +11,13 @@ module.exports = {
 
   attributes: {
 
+
     userName: {
     	type: 'string',
     	unique: true,
     	required: true,
     	size: 30,
-    //	columnName: 'username'
+    	columnName: 'username'
     },
 
 
@@ -24,7 +25,7 @@ module.exports = {
       type: 'string',
       required: true,
       size: 50,
-  //    columnName: 'password'
+      columnName: 'password'
     },
 
 
@@ -33,7 +34,7 @@ module.exports = {
       required: true,
       unique:true,
       size: 50,
-   //   columnName: 'email'
+      columnName: 'email'
     },
 
 
@@ -41,19 +42,21 @@ module.exports = {
     {
     	type: 'string',
     	unique: true,
-      defaultsTo: '000-000-0000'
-  //  	columnName: 'phone_number'
+      defaultsTo: '000-000-0000',
+    	columnName: 'phone_number'
 
     },
 
     currentLat:
     {
       type: 'float',
+      columnName: 'currentLat'
     },
 
     currentLng:
     {
-      type: 'float'
+      type: 'float',
+      columnName: 'currentLng'
     },
 
 
