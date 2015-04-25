@@ -227,7 +227,7 @@ updateLocation : function(req, res){
     if(err) {
        res.json(err);
     }
-    console.log(userKey + ":____________key");
+   
     console.log(user);
 
     user.currentLat = lat;
