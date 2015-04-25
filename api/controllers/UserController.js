@@ -223,11 +223,13 @@ updateLocation : function(req, res){
   var lat = req.param('lat');
   var userKey = req.param('key');
 
+  console.log(userKey);
+
   User.findOne({id:userKey}).exec(function findOneCB(err,user){
     if(err) {
        res.json(err);
     }
-   
+
     console.log(user);
 
     user.currentLat = lat;
