@@ -39,14 +39,20 @@ module.exports.connections = {
   *                                                                          *
   * Run: npm install sails-mysql                                             *
   *                                                                          *
-  ***************************************************************************/
-  someMysqlServer: {
+  **************************************************************************/
+
+
+    AmazonSqlDatabase: {
     adapter: 'sails-mysql',
-    host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_MYSQL_USER',
-    password: 'YOUR_MYSQL_PASSWORD',
-    database: 'YOUR_MYSQL_DB'
+    host: 'momnts.cragjvdpgo4c.us-west-2.rds.amazonaws.com',
+    user: 'kaseanherrera',
+    password: 'Bancroft90!',
+    database: 'momnts',
+    port: 3306,
   },
+
+
+
 
   /***************************************************************************
   *                                                                          *

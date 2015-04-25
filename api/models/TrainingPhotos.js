@@ -7,6 +7,8 @@
 
 module.exports = {
 
+  connection: 'AmazonSqlDatabase',
+
   attributes: {
   	owner: {
   		type: 'integer',

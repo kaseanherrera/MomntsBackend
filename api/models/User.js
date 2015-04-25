@@ -7,7 +7,7 @@
 
 module.exports = {
 
- 
+ connection: 'AmazonSqlDatabase',
 
   attributes: {
 

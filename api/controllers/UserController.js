@@ -53,6 +53,8 @@ module.exports = {
     }, 
     function (err, user) {
 
+    console.log(user);
+
 
     var response = {
       success : true,
