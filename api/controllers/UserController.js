@@ -54,7 +54,7 @@ module.exports = {
     function (err, user) {
 
     console.log(user);
-
+    console.log(err);
 
     var response = {
       success : true,
