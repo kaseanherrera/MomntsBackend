@@ -11,6 +11,11 @@ module.exports = {
 
   attributes: {
 
+   id: {
+    type: 'integer', 
+    primaryKey: true,
+    autoIncrement: true
+  },
 
     userName: {
     	type: 'string',
@@ -85,6 +90,7 @@ module.exports = {
     var userName = inputs.name;
 
     User.create({
+  
       userName: userName,
       password: inputs.password,
       email: inputs.email,

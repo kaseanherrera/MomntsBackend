@@ -10,6 +10,13 @@ module.exports = {
   connection: 'AmazonSqlDatabase',
 
   attributes: {
+
+    id: {
+    type: 'integer', 
+    primaryKey: true,
+    autoIncrement: true
+    },
+
   	owner: {
   		type: 'integer',
   		required: true,
