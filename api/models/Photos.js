@@ -7,9 +7,17 @@
 
 module.exports = {
 
+  connection: 'AmazonSqlDatabase',
+
  attributes: {
 
-    connection: 'AmazonSqlDatabase',
+    
+
+    id: {
+    type: 'integer', 
+    primaryKey: true,
+    autoIncrement: true
+    },
 
     owner: {
       type : 'integer',
