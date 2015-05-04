@@ -74,6 +74,7 @@ module.exports = {
 
 
 
+
   // (POST /user/uploadTraingPhoto)
   uploadTraingPhoto: function(req, res){
 
@@ -279,8 +280,46 @@ getPhotos: function (req, res){
   });
 
 
-}
+},
 
+
+//test call : http://www.localhost.com:1337/user/addFriend?userName=kaseanherrera&requested=naren
+addFriend : function (req, res){
+
+  var Promise = require("bluebird");
+  var response = {
+    success : true
+  }
+
+  var userName = req.param('userName');
+  var requested = req.param('requested');  //username of the person you are requesting 
+  /* find the user, if exist, add add friend*/
+
+  User.find( {userName : userName }).exec(function findUserCB(err,user){
+
+  //console.log(user);
+
+   if(err){
+      response.success = false;
+      response.error = err;
+      return res.json(response);
+    }
+  
+    //add friend
+    user[0].friends.add(requested);
+
+   // console.log(user[0].friends);
+    //save 
+    user[0].save(function(err,res){
+      console.log(res);
+      console.log(err);
+    }); 
+
+  }); 
+  
+
+  //return;
+}
 
 };
 

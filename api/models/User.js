@@ -67,7 +67,7 @@ module.exports = {
 
     friends: {
       collection: 'User',
-      via: 'id'
+      via: 'userName'
     },
 
     photos: {
@@ -159,5 +159,10 @@ module.exports = {
     .exec(cb);
   }
 
+  /*addFriend: function(inputs,cb){
+    //add friend to requester and requested friends list of friends
+  
+
+  } */
 };
 
