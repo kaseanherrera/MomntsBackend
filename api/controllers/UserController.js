@@ -145,7 +145,7 @@ module.exports = {
 
    var key = req.param("key");
    console.log(key);
-   console.log(req);
+
 
    var response = {
      success : true,
