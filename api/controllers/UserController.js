@@ -304,21 +304,51 @@ addFriend : function (req, res){
       response.error = err;
       return res.json(response);
     }
+
+    User.find({userName : requested}).exec(function cd(err, user2){
+         if(err){
+          response.success = false;
+          response.error = err;
+          return res.json(response);
+        }
+
+
+          console.log(user);
+          console.log(user2);
+
+          user[0].friends.add(user2[0].id);
+          user2[0].friends.add(user[0].id);
+
+
+
+
+          user[0].save(function(err,res){
+            console.log(err);
+            console.log(res);
+           /* if(err){
+              response.success = false;
+              return res.json(response);
+            }*/
+          });
+
+          user2[0].save(function(err,res){
+            /*if(err){
+              response.success = false;
+              return res.json(response);
+            }*/
+          }); 
+    });
+
+      
+
+    });
   
-    //add friend
-    user[0].friends.add(requested);
 
-   // console.log(user[0].friends);
-    //save 
-    user[0].save(function(err,res){
-      console.log(res);
-      console.log(err);
-    }); 
 
-  }); 
+   
   
 
-  //return;
+  return response;
 }
 
 };

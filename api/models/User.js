@@ -67,7 +67,7 @@ module.exports = {
 
     friends: {
       collection: 'User',
-      via: 'userName'
+      via: 'id'
     },
 
     photos: {
