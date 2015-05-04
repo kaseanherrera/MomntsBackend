@@ -50,7 +50,11 @@ module.exports.routes = {
   'post /user/updateLocation' : 'UserController.updateLocation',
 
   'get /getPhotos' : {view : 'user/getPhotos'},
-  'post /user/getPhotos' : 'UserController.getPhotos'
+  'post /user/getPhotos' : 'UserController.getPhotos',
+
+  'post /user/addFriend' : 'UserController.addFriend',
+
+  'post /user/getFriends' : 'UserController.getFriends'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

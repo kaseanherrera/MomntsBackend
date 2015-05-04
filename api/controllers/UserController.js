@@ -344,11 +344,30 @@ addFriend : function (req, res){
     });
   
 
-
-   
-  
-
   return res.json(response);
+},
+
+getFriends : function (req, res){
+
+  var response = {};
+  var userName = req.param('userName');
+
+  User.find( {userName : userName }).populate('friends').exec(function findUserCB(err,user){
+
+    if(err){
+      response.success = false;
+      response.error = err;
+      return res.json(response);
+    }
+
+
+    else{
+      console.log(user[0].friends);
+      return res.json(user[0].friends);
+    }
+
+  });
+
 }
 
 };
