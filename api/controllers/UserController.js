@@ -286,7 +286,7 @@ getPhotos: function (req, res){
 //test call : http://www.localhost.com:1337/user/addFriend?userName=kaseanherrera&requested=naren
 addFriend : function (req, res){
 
-  var Promise = require("bluebird");
+ // var Promise = require("bluebird");
   var response = {
     success : true
   }
