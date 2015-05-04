@@ -348,7 +348,7 @@ addFriend : function (req, res){
    
   
 
-  return response;
+  return res.json(response);
 }
 
 };
