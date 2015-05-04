@@ -143,6 +143,9 @@ module.exports = {
   // (POST /user/uploadTraingPhoto)
   uploadPhoto: function(req, res){
 
+   var key = req.param("key");
+   console.log(key);
+
    var response = {
      success : true,
      error : null
@@ -170,6 +173,10 @@ module.exports = {
 
         var idUserNameSplit = uploadedFile[i].filename.split("/");
         var directorySplit = uploadedFile[i].fd.split("/");
+      // var idUserNameSplit = uploadedFile[i].filename.split(":");
+        // var directorySplit = uploadedFile[i].fd.split(":");
+
+
 
         var userName = idUserNameSplit[0];
         var userId = idUserNameSplit[1];
@@ -212,6 +219,8 @@ module.exports = {
           else console.log(Photo)
         }); 
       }
+
+
 
     return res.json(response);
   }); 
@@ -347,8 +356,8 @@ addFriend : function (req, res){
   return res.json(response);
 },
 
-getFriends : function (req, res){
 
+getFriends : function (req, res){
   var response = {};
   var userName = req.param('userName');
 
