@@ -140,6 +140,21 @@ module.exports = {
 },
 
 
+savePhotoData: function(req, res){
+  var fileLocation = req.param('location');
+
+  var response = {
+    success : true
+  }
+
+  Photos.find({where : { fileLocation : fileLocation}}).then(function picCB(err, photo){
+    console.log(photo);
+  
+  });
+
+},
+
+
   // (POST /user/uploadTraingPhoto)
   uploadPhoto: function(req, res){
 
@@ -166,7 +181,7 @@ module.exports = {
 
       var baseUrl = 'https://s3-us-west-1.amazonaws.com/momnts/';
 
-      var photosArray = ["kasean"];
+      var photosArray = [];
 
       for(var i = 0; i < uploadedFile.length ; i++){
 
@@ -188,6 +203,7 @@ module.exports = {
         
         var location = userName + '/photos/' + fileName;
         newFileLocaion = baseUrl + location;
+        photosArray[photosArray.length] = newFileLocaion;
         
         fs.readFile(uploadedFile[i].fd, function(err,data){
           var params = {
@@ -218,20 +234,11 @@ module.exports = {
 
 
       }
-
-
-
-      console.log(newFileLocaion);
-      
-      Photos.find( {fileLocation : newFileLocaion.toString()}).then(function findUserCB(err,photo){
-          console.log(photo);
-         // console.log(err);
-
-      });
+     
 
     
       response.photos = photosArray; 
-    return res.json(response);
+      return res.json(response);
   });
 },
 
@@ -267,7 +274,6 @@ updateLocation : function(req, res){
   });
 
 },
-
 
 
 getPhotos: function (req, res){

@@ -54,7 +54,9 @@ module.exports.routes = {
 
   'post /user/addFriend' : 'UserController.addFriend',
 
-  'post /user/getFriends' : 'UserController.getFriends'
+  'post /user/getFriends' : 'UserController.getFriends',
+
+  'post /user/savePhotoData' : 'UserController.savePhotoData'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
