@@ -140,7 +140,9 @@ module.exports = {
 },
 
 
+//function updates photo data by adding the friends to the Photos
 savePhotoData: function(req, res){
+
   var fileLocation = req.param('location');
 
   var response = {
@@ -155,8 +157,12 @@ savePhotoData: function(req, res){
 },
 
 
+
+  
+
   // (POST /user/uploadTraingPhoto)
   uploadPhoto: function(req, res){
+
 
    var response = {
      success : true,
@@ -174,7 +180,12 @@ savePhotoData: function(req, res){
    var s3 = new AWS.S3();
 
    var newFileLocaion;
-  
+
+
+   Photos.find().sort({ id: 'desc' }).limit(1).then(function(photo){
+    var  startId = photo[0].id;
+
+ 
     req.file('avatar').upload({
 
     }, function whenDone(err, uploadedFile){
@@ -185,7 +196,8 @@ savePhotoData: function(req, res){
 
       for(var i = 0; i < uploadedFile.length ; i++){
 
-        //production
+        photosArray[photosArray.length] = startId+1;
+        startId = startId+1;
         var idUserNameSplit = uploadedFile[i].filename.split("/");
         var directorySplit = uploadedFile[i].fd.split("/");
         //test environment
@@ -203,7 +215,8 @@ savePhotoData: function(req, res){
         
         var location = userName + '/photos/' + fileName;
         newFileLocaion = baseUrl + location;
-        photosArray[photosArray.length] = newFileLocaion;
+        //add photo location to the list 
+        //photosArray[photosArray.length] = newFileLocaion;
         
         fs.readFile(uploadedFile[i].fd, function(err,data){
           var params = {
@@ -215,12 +228,10 @@ savePhotoData: function(req, res){
 
           s3.putObject(params, function(err, data) {
             if (err) console.log("err, err.stack"); // an error occurred
-            else     console.log("NO ERROR IN E2");
           });
         });
 
 
-        var kasean = 8;
         Photos.savePhoto({
           fileLocation : newFileLocaion,
           owner : userId,
@@ -234,11 +245,16 @@ savePhotoData: function(req, res){
 
 
       }
-     
+
+          response.photos = photosArray; 
+          return res.json(response);
+
+    });
+
+
 
     
-      response.photos = photosArray; 
-      return res.json(response);
+      
   });
 },
 
@@ -386,8 +402,18 @@ getFriends : function (req, res){
 
 
     else{
-      console.log(user[0].friends);
-      return res.json(user[0].friends);
+      var friends = user[0].friends;
+
+      var listOfFriends = []
+      for(var i = 0 ; i < friends.length ;  i++){
+        listOfFriends.push({
+          userName: friends[i].userName,
+          id : friends[i].id
+        });
+      }
+
+      console.log(listOfFriends);
+      return res.json(listOfFriends);
     }
 
   });
