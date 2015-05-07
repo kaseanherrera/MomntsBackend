@@ -29,6 +29,8 @@ module.exports.models = {
   ***************************************************************************/
   migrate: 'safe',
 
-  connection: 'AmazonSqlDatabase'
+  connection: 'AmazonSqlDatabase',
+
+  'new': require('sails-model-new')
 
 };

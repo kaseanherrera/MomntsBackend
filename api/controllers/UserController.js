@@ -143,10 +143,6 @@ module.exports = {
   // (POST /user/uploadTraingPhoto)
   uploadPhoto: function(req, res){
 
-   var key = req.param("key");
-   console.log(key);
-
-
    var response = {
      success : true,
      error : null
@@ -162,20 +158,24 @@ module.exports = {
  
    var s3 = new AWS.S3();
 
+   var newFileLocaion;
   
     req.file('avatar').upload({
 
     }, function whenDone(err, uploadedFile){
 
       var baseUrl = 'https://s3-us-west-1.amazonaws.com/momnts/';
-      for(var i = 0; i < uploadedFile.length ; i++){
-       
-        console.log(uploadedFile[i]);
 
+      var photosArray = ["kasean"];
+
+      for(var i = 0; i < uploadedFile.length ; i++){
+
+        //production
         var idUserNameSplit = uploadedFile[i].filename.split("/");
         var directorySplit = uploadedFile[i].fd.split("/");
-      // var idUserNameSplit = uploadedFile[i].filename.split(":");
-        // var directorySplit = uploadedFile[i].fd.split(":");
+        //test environment
+        var idUserNameSplit = uploadedFile[i].filename.split(":");
+        var directorySplit = uploadedFile[i].fd.split(":");
 
 
 
@@ -184,15 +184,10 @@ module.exports = {
         var lat = idUserNameSplit[2];
         var lng = idUserNameSplit[3];
 
-        console.log(userName);
-        console.log(userId);
-        console.log(lat);
-        console.log(lng);
-
         var fileName = directorySplit[directorySplit.length-1];
         
         var location = userName + '/photos/' + fileName;
-       
+        newFileLocaion = baseUrl + location;
         
         fs.readFile(uploadedFile[i].fd, function(err,data){
           var params = {
@@ -209,22 +204,35 @@ module.exports = {
         });
 
 
+        var kasean = 8;
         Photos.savePhoto({
-          fileLocation : baseUrl+location,
+          fileLocation : newFileLocaion,
           owner : userId,
           lat : lat,
           lng : lng
         },
         function (err,Photo){
           if(err) console.log(err);
-          else console.log(Photo)
-        }); 
+
+        });
+
+
       }
 
 
 
+      console.log(newFileLocaion);
+      
+      Photos.find( {fileLocation : newFileLocaion.toString()}).then(function findUserCB(err,photo){
+          console.log(photo);
+         // console.log(err);
+
+      });
+
+    
+      response.photos = photosArray; 
     return res.json(response);
-  }); 
+  });
 },
 
 
