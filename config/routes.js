@@ -56,7 +56,9 @@ module.exports.routes = {
 
   'post /user/getFriends' : 'UserController.getFriends',
 
-  'post /user/savePhotoData' : 'UserController.savePhotoData'
+  'post /user/savePhotoData' : 'UserController.savePhotoData',
+
+  'get /api': {view: 'user/api'},
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

@@ -1,0 +1,42 @@
+<html !doctype>
+<body>
+ 
+ <p>
+  'post /signup': <br>
+      Parameters : name, password, email, phoneNumber <br><br>
+
+  'post /login': <br>
+      Parameters : email, password<br><br>
+
+  'post /user/avatar' : uploading traingin photos<br>
+      Parameters: avatar<br><br>
+
+  'post /user/uploadPhoto' : upload photos<br>
+      Parameters : avatar <br>
+      Return : list of ids associated to the uploaded photos<br><br>
+
+  'post /user/savePhotoData' : save users in photos <br>
+      Parameters : photoId, userId<br>
+      return : success<br><br>
+
+
+  'post /user/getPhotos' : 'UserController.getPhotos',<br>
+      Parameters: key (userId)<br>
+      return : location of all user photos<br><br>
+
+  'post /user/addFriend' : 'UserController.addFriend',<br>
+      post: userName, requested(user name of the friend you are requesting)<br>
+      return: success<br><br>
+
+  'post /user/getFriends' : get all user friends<br>
+    Parameters: userName <br>
+    return : list of user friends<br><br>
+
+
+  'post /user/updateLocation' : update user location <br>
+    Parameters : lng, lat, key(user id)<br>
+    return : success<br><br>
+</P>
+
+</body>
+</html>

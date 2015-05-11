@@ -141,19 +141,31 @@ module.exports = {
 
 
 //function updates photo data by adding the friends to the Photos
+//localhost:1337/user/savePhotoData?photoId=1&userId=1&userId=2
 savePhotoData: function(req, res){
 
-  var fileLocation = req.param('location');
+  var id = req.param('photoId');
+  var userId = req.param('userId');
 
   var response = {
     success : true
   }
 
-  Photos.find({where : { fileLocation : fileLocation}}).then(function picCB(err, photo){
+  Photos.findOne({id : id}).populate('users').then(function picCB(photo){
+     
+    for(var i = 0 ; i < userId.length ; i++){
+      //add and save all the user ids passed to the photo
+      photo.users.add(userId[i]);
+    };
+
+    photo.save(function (err) {
+          if (err) return res.serverError(err); 
+    });
+
     console.log(photo);
-  
   });
 
+  return res.json(response);
 },
 
 
