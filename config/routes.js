@@ -58,6 +58,8 @@ module.exports.routes = {
 
   'post /user/savePhotoData' : 'UserController.savePhotoData',
 
+  'post /user/getNearFriends' : 'UserController.getNearFriends',
+
   'get /api': {view: 'user/api'},
   /***************************************************************************
   *                                                                          *

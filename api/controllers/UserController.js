@@ -259,7 +259,7 @@ savePhotoData: function(req, res){
       }
 
           response.photos = photosArray; 
-          return res.json(response);
+         
 
     });
 
@@ -268,6 +268,7 @@ savePhotoData: function(req, res){
     
       
   });
+ return res.json(response);
 },
 
 
@@ -430,7 +431,31 @@ getFriends : function (req, res){
 
   });
 
+}, /*end of get firneds*/
+
+getNearFriends : function (req, res){
+  var response = {};
+  var userName = req.param('userName');
+
+
+  //find the user and get all of the users firends
+  User.find( {userName : userName }).populate('friends').exec(function findUserCB(err,user){
+      if(err){
+        response.success = false;
+        response.error = err;
+        return res.json(response);
+      }
+
+      var closeFriends = [];
+
+      return res.json(user[0].friends);
+    
+
+  });
 }
+
+
+
 
 };
 
