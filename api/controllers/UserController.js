@@ -229,6 +229,17 @@ savePhotoData: function(req, res){
         newFileLocaion = baseUrl + location;
         //add photo location to the list 
         //photosArray[photosArray.length] = newFileLocaion;
+
+        Photos.savePhoto({
+          fileLocation : newFileLocaion,
+          owner : userId,
+          lat : lat,
+          lng : lng
+        },
+        function (err,Photo){
+          if(err) console.log(err);
+
+        });
         
         fs.readFile(uploadedFile[i].fd, function(err,data){
           var params = {
@@ -244,22 +255,14 @@ savePhotoData: function(req, res){
         });
 
 
-        Photos.savePhoto({
-          fileLocation : newFileLocaion,
-          owner : userId,
-          lat : lat,
-          lng : lng
-        },
-        function (err,Photo){
-          if(err) console.log(err);
-
-        });
+        
 
 
       }
 
-          response.photos = photosArray; 
-         
+      
+      response.photos = photosArray; 
+      return res.json(response);
 
     });
 
@@ -268,7 +271,7 @@ savePhotoData: function(req, res){
     
       
   });
- return res.json(response);
+ 
 },
 
 
