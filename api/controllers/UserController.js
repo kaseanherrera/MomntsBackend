@@ -195,7 +195,8 @@ savePhotoData: function(req, res){
 
 
    Photos.find().sort({ id: 'desc' }).limit(1).then(function(photo){
-    var  startId = photo[0].id;
+
+    var  startId =  photo[0].id;
 
  
     req.file('avatar').upload({
@@ -253,9 +254,6 @@ savePhotoData: function(req, res){
             if (err) console.log("err, err.stack"); // an error occurred
           });
         });
-
-
-        
 
 
       }
