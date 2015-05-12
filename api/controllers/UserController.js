@@ -199,8 +199,7 @@ savePhotoData: function(req, res){
 
 
    Photos.find().sort({ id: 'desc' }).limit(1).then(function(photo){
-
-    var  startId =  photo[0].id;
+    var  startId = photo[0].id;
 
  
     req.file('avatar').upload({
@@ -210,7 +209,6 @@ savePhotoData: function(req, res){
       var baseUrl = 'https://s3-us-west-1.amazonaws.com/momnts/';
 
       var photosArray = [];
-      var filesUploaded = 0;
 
       for(var i = 0; i < uploadedFile.length ; i++){
 
@@ -221,6 +219,8 @@ savePhotoData: function(req, res){
         //test environment
         var idUserNameSplit = uploadedFile[i].filename.split(":");
         var directorySplit = uploadedFile[i].fd.split(":");
+
+
 
         var userName = idUserNameSplit[0];
         var userId = idUserNameSplit[1];
@@ -245,63 +245,38 @@ savePhotoData: function(req, res){
 
         });
         
-       /* fs.readFile(uploadedFile[i].fd, function(err,data){
+        fs.readFile(uploadedFile[i].fd, function(err,data){
           var params = {
            Bucket: 'momnts', 
            Key: location, 
            ACL: 'public-read-write',
            Body: new Buffer(data) 
-          }; */
+          };
 
-        var file  = fs.readFileSync(uploadedFile[i].fd);
-        var params = {
-           Bucket: 'momnts', 
-           Key: location, 
-           ACL: 'public-read-write',
-           Body: new Buffer(file) 
-        };
-
-       // var love = 1;
-        s3.putObject(params, function(err, data) {
+          s3.putObject(params, function(err, data) {
             if (err) console.log("err, err.stack"); // an error occurred
-            filesUploaded = filesUploaded + 1;
+          });
         });
 
 
-       }});
-
-        /*  s3.putObject(params, function(err, data) {
-            if (err) console.log("err, err.stack"); // an error occurred
-            filesUploaded = filesUploaded + 1;
-          }); */
-       // });
+        
 
 
-      
-     // console.log(filesUploaded + "    files uploaded");
-/*
-      while(filesUploaded != uploadedFile.length){
-        console.log("waiting");
-        console.log(filesUploaded + "   <- files uploaded");
       }
-*/
-
-      });
 
       
-      //response.photos = photosArray; 
+      response.photos = photosArray; 
+      return res.json(response);
+
+    });
+
+
+
+    
       
-   // });
-
-
-
-    //return res.json(response);
-
-      
-//  });
+  });
  
 },
-
 
 
 updateLocation : function(req, res){
