@@ -230,7 +230,7 @@ savePhotoData: function(req, res){
         console.log(userName);
         console.log(userId);
         console.log(lat);
-        consoel.log(lng);
+        console.log(lng);
 
         var fileName = directorySplit[directorySplit.length-1];
         
