@@ -227,6 +227,11 @@ savePhotoData: function(req, res){
         var lat = idUserNameSplit[2];
         var lng = idUserNameSplit[3];
 
+        console.log(userName);
+        console.log(userId);
+        console.log(lat);
+        consoel.log(lng);
+
         var fileName = directorySplit[directorySplit.length-1];
         
         var location = userName + '/photos/' + fileName;
