@@ -78,26 +78,26 @@ module.exports = {
   // (POST /user/uploadTraingPhoto)
   uploadTraingPhoto: function(req, res){
 
-   var response = {
-     success : true,
-     error : null
-   }
-
-    var fs = require('fs');
-    var AWS = require('aws-sdk'); 
+   var fs = require('fs');
+   var AWS = require('aws-sdk'); 
 
    AWS.config.update({
      accessKeyId: 'AKIAIJ7DGKVU2YVTGQKA',
      secretAccessKey: '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', 
    }); 
- 
+
    var s3 = new AWS.S3();
 
+   var response = {
+     success : true,
+     error : null
+   }
+ 
   
     req.file('avatar').upload({
 
     }, function whenDone(err, uploadedFile){
-
+      var uploadedFiles = 0;
 
       for(var i = 0; i < uploadedFile.length ; i++){
        
@@ -135,6 +135,8 @@ module.exports = {
         }); 
       }
 
+
+
     return res.json(response);
   }); 
 },
@@ -146,6 +148,8 @@ savePhotoData: function(req, res){
 
   var id = req.param('photoId');
   var userId = req.param('userId');
+
+  console.log(rea.params.all());
 
   var response = {
     success : true
@@ -206,6 +210,7 @@ savePhotoData: function(req, res){
       var baseUrl = 'https://s3-us-west-1.amazonaws.com/momnts/';
 
       var photosArray = [];
+      var filesUploaded = 0;
 
       for(var i = 0; i < uploadedFile.length ; i++){
 
@@ -216,8 +221,6 @@ savePhotoData: function(req, res){
         //test environment
         var idUserNameSplit = uploadedFile[i].filename.split(":");
         var directorySplit = uploadedFile[i].fd.split(":");
-
-
 
         var userName = idUserNameSplit[0];
         var userId = idUserNameSplit[1];
@@ -242,33 +245,60 @@ savePhotoData: function(req, res){
 
         });
         
-        fs.readFile(uploadedFile[i].fd, function(err,data){
+       /* fs.readFile(uploadedFile[i].fd, function(err,data){
           var params = {
            Bucket: 'momnts', 
            Key: location, 
            ACL: 'public-read-write',
            Body: new Buffer(data) 
-          };
+          }; */
 
-          s3.putObject(params, function(err, data) {
+        var file  = fs.readFileSync(uploadedFile[i].fd);
+        var params = {
+           Bucket: 'momnts', 
+           Key: location, 
+           ACL: 'public-read-write',
+           Body: new Buffer(file) 
+        };
+
+       // var love = 1;
+        s3.putObject(params, function(err, data) {
             if (err) console.log("err, err.stack"); // an error occurred
-          });
+            filesUploaded = filesUploaded + 1;
         });
 
 
+       }});
+
+        /*  s3.putObject(params, function(err, data) {
+            if (err) console.log("err, err.stack"); // an error occurred
+            filesUploaded = filesUploaded + 1;
+          }); */
+       // });
+
+
+      
+     // console.log(filesUploaded + "    files uploaded");
+/*
+      while(filesUploaded != uploadedFile.length){
+        console.log("waiting");
+        console.log(filesUploaded + "   <- files uploaded");
       }
+*/
+
+      });
 
       
-      response.photos = photosArray; 
-      return res.json(response);
-
-    });
-
-
-
-    
+      //response.photos = photosArray; 
       
-  });
+   // });
+
+
+
+    //return res.json(response);
+
+      
+//  });
  
 },
 
