@@ -217,8 +217,8 @@ savePhotoData: function(req, res){
         var idUserNameSplit = uploadedFile[i].filename.split("/");
         var directorySplit = uploadedFile[i].fd.split("/");
         //test environment
-        var idUserNameSplit = uploadedFile[i].filename.split(":");
-        var directorySplit = uploadedFile[i].fd.split(":");
+      //  var idUserNameSplit = uploadedFile[i].filename.split(":");
+      //  var directorySplit = uploadedFile[i].fd.split(":");
 
 
 
