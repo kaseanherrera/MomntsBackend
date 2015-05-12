@@ -149,7 +149,7 @@ savePhotoData: function(req, res){
   var id = req.param('photoId');
   var userId = req.param('userId');
 
-  console.log(rea.params.all());
+  console.log(req.params.all());
 
   var response = {
     success : true
