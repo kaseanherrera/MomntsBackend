@@ -49,7 +49,8 @@ module.exports = {
     users: {
       collection : 'User',
       via: 'photos'
-    }
+    },
+    //add date takem 
 
 },
 
